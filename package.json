@@ -3,13 +3,43 @@
     "version": "1.0.0",
     "description": "encrypt and decrypt files with crypto-js",
     "main": "index.js",
+    "bin": {
+        "crypto-file": "./lib/index.js"
+    },
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "audit": "lerna run audit --stream",
+        "audit:depcheck": "lerna run audit:depcheck --stream",
+        "audit:npm-check-updates": "npx npm-check-updates --errorLevel 1",
+        "build": "tsc -p .",
+        "create": "npm run build && npm run test",
+        "local": "sudo npm uninstall -g && sudo npm install -g && pizza",
+        "npm:format": "npx prettier-package-json --write package.json",
+        "npm:upgrade": "npx npm-check-updates -iu",
+        "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+        "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+        "test": "sudo npm i -g && crypto-file-js"
     },
     "keywords": [
-      "encrypt",
-      "decrypt"
+        "encrypt",
+        "decrypt"
     ],
     "author": "https://raphaelcarlosr.dev",
-    "license": "ISC"
-  }
+    "license": "ISC",
+    "dependencies": {
+        "chalk": "^4.1.1",
+        "clear": "^0.1.0",
+        "commander": "^7.2.0",
+        "crypto-js": "^4.0.0",
+        "figlet": "^1.5.0",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "@types/clear": "^0.1.1",
+        "@types/crypto-js": "^4.0.1",
+        "@types/figlet": "^1.5.1",
+        "@types/node": "^15.3.0",
+        "nodemon": "^2.0.7",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.2.4"
+    }
+}
