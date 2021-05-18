@@ -1,0 +1,15 @@
+{
+  "name": "crypto-file-js",
+  "version": "1.0.0",
+  "description": "encrypt and decrypt files with crypto-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "encrypt",
+    "decrypt"
+  ],
+  "author": "raphaelcarlosr.dev",
+  "license": "ISC"
+}
