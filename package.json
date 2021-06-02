@@ -1,6 +1,6 @@
 {
     "name": "crypto-file-js",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "encrypt and decrypt files with crypto-js",
     "main": "index.js",
     "bin": {
@@ -11,6 +11,7 @@
         "audit:depcheck": "lerna run audit:depcheck --stream",
         "audit:npm-check-updates": "npx npm-check-updates --errorLevel 1",
         "build": "tsc -p .",
+        "postbuild": "mv lib/src/* lib/; rm lib/package.json --force; rm lib/src -f -r",
         "create": "npm run build && npm run test",
         "local": "sudo npm uninstall -g && sudo npm install -g && pizza",
         "npm:format": "npx prettier-package-json --write package.json",

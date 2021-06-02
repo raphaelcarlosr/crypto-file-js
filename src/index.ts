@@ -3,35 +3,45 @@ import chalk from 'chalk';
 import clear from 'clear';
 import figlet from 'figlet';
 import path from 'path';
-import program from 'commander';
+import {program, Option} from 'commander';
 import cryptoJS from 'crypto-js';
+import {version, name, description} from '../package.json';
 
 type Algorithms = 'AES' | 'DES' | 'Rabbit' | 'RC4' | 'RC4Drop';
 
 clear();
 console.log(
     chalk.red(
-        figlet.textSync('crypto-file-js-cli', { horizontalLayout: 'full' })
+        figlet.textSync(`${name}-cli`, { horizontalLayout: 'full' })
     )
 );
 
 
 program
-    .version('0.0.1')
-    .description("Chose the options below")
-    .option('-E, --encrypt', 'Encrypt action')
-    .option('-D, --decrypt', 'Decrypt action')
-    .option('-I, --input', 'Input file')
-    .option('-O, --output', 'Output file')
-    .option('-P, --phrase', 'Secret Phrase')
-    .option('-A, --algorithm <type>', "Algorithm ['AES' | 'DES' | 'Rabbit' | 'RC4' | 'RC4Drop']")
+    .name(name)
+    .version(version, undefined, description)
+    .description(description)
+    .helpOption('-h, --help', 'Display help for the command')
+    .option('-v, --version', 'Display the current version')
+    .addOption(
+        new  Option('-a, --action <action>', 'Encrypt or Decrypt ("e=encrypt", "d=decrypt")')
+            .choices(['e', 'd'])
+    )
+    .option('-i, --input', 'Input file')
+    .option('-o, --output', 'Output file')
+    .option('-p, --phrase', 'Secret Phrase')
+    .addOption(
+        new  Option('-c, --cipher <cipher>', "Cipher Algorithm")
+            .choices(['AES', 'DES', 'Rabbit', 'RC4', 'RC4Drop'])
+            .default('AES')
+    )
+    // .option('-c, --cipher <cipher>', "Algorithm ['AES' | 'DES' | 'Rabbit' | 'RC4' | 'RC4Drop']")
+    .usage('<file>... (-p <password>) [-c <cipher>] [-e <encoding>] [-s] [-o]')
     .parse(process.argv);
 
+    
 const options = program.opts();
 
-if (options.version) {
-    console.log('version');
-}
 
 if(!!options.input && options.output && options.phrase){
     console.log(`
